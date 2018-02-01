@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/WebDav.iml" filepath="$PROJECT_DIR$/.idea/modules/WebDav.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/WebDav_main.iml" filepath="$PROJECT_DIR$/.idea/modules/WebDav_main.iml" group="WebDav" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/WebDav_test.iml" filepath="$PROJECT_DIR$/.idea/modules/WebDav_test.iml" group="WebDav" />
+    </modules>
+  </component>
+</project>
