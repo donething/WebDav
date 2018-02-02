@@ -155,11 +155,11 @@ public class WebDavFile {
      * @param savedPath 保存路径
      * @return 下载是否成功
      */
-    public boolean downFile(String savedPath) {
-        return downFile(savedPath, false);
+    public boolean download(String savedPath) {
+        return download(savedPath, false);
     }
 
-    public boolean downFile(String savedPath, boolean replaceExisting) {
+    public boolean download(String savedPath, boolean replaceExisting) {
         InputStream in = getInputStream();
         try {
             if (replaceExisting) {
@@ -180,7 +180,7 @@ public class WebDavFile {
      * @param localPath 本地文件路径
      * @return 是否成功成功
      */
-    public boolean upFile(String localPath) {
+    public boolean upload(String localPath) {
         File file = new File((localPath));
         String fileMime = "";
         try {
