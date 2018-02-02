@@ -142,6 +142,13 @@ public class WebDavFile {
         return list.toArray(new WebDavFile[list.size()]);
     }
 
+    public boolean makeAsDir() {
+        Request.Builder request = new Request.Builder()
+                .url(getUrl())
+                .method("MKCOL", null);
+        return execRequest(request);
+    }
+
     /**
      * 下载到本地
      *
@@ -188,13 +195,23 @@ public class WebDavFile {
                 .url(getUrl())
                 .put(fileBody);
 
+        return execRequest(request);
+    }
+
+    /**
+     * 执行请求，获取响应结果
+     *
+     * @param requestBuilder 因为还需要追加验证信息，所以此处传递Request.Builder的对象，而不是Request的对象
+     * @return 请求执行的结果
+     */
+    private boolean execRequest(Request.Builder requestBuilder) {
         HttpAuth.Auth auth = HttpAuth.getAuth(url.toString());
         if (auth != null) {
-            request.header("Authorization", Credentials.basic(auth.getUser(), auth.getPass()));
+            requestBuilder.header("Authorization", Credentials.basic(auth.getUser(), auth.getPass()));
         }
 
         try {
-            Response response = okHttpClient.newCall(request.build()).execute();
+            Response response = okHttpClient.newCall(requestBuilder.build()).execute();
             return response.isSuccessful();
         } catch (Exception e) {
             e.printStackTrace();
