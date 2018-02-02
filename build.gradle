@@ -8,6 +8,24 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
 }
+apply plugin: 'com.novoda.bintray-release' // must be applied after your artifact generating plugin (eg. java / com.android.library)
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.3.4'
+    }
+}
+publish {
+    userOrg = 'donething'
+    groupId = 'net.donething.java'
+    artifactId = 'webdav'
+    repoName = 'java'
+    publishVersion = '1.0.0'
+    desc = 'Android平台上适用的WebDAV类库'
+    website = 'https://github.com/donething/WebDav'
+}
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
