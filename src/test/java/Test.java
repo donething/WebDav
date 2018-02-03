@@ -11,8 +11,9 @@ public class Test {
     public static void main(String[] args) {
         HttpAuth.addAuth("https://dav.jianguoyun.com/dav,", "donething@foxmail.com", "ajqx3p288w97q3cz");
         try {
-            WebDavFile file = new WebDavFile("https://dav.jianguoyun.com/dav/PrivBackup");
+            WebDavFile file = new WebDavFile("https://dav.jianguoyun.com/dav/ebooks");
             file.indexFileInfo();
+            System.out.println("信息：" + file.getCanon());
         } catch (Exception e) {
             e.printStackTrace();
         }

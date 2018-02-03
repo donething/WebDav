@@ -20,9 +20,7 @@ public class HttpAuth {
         try {
             Auth auth = new Auth(url, user, password);
 
-            if (authList.contains(auth)) {
-                throw new WebDavAuthException("Auth already exist.");
-            } else {
+            if (!authList.contains(auth)) {
                 authList.add(auth);
             }
         } catch (MalformedURLException e) {
