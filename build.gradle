@@ -22,7 +22,7 @@ publish {
     groupId = 'net.donething.java'
     artifactId = 'webdav'
     repoName = 'java'
-    publishVersion = '1.0.4'
+    publishVersion = '1.0.5'
     desc = 'Android平台上适用的WebDAV类库'
     website = 'https://github.com/donething/WebDav'
 }

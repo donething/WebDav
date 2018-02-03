@@ -9,18 +9,13 @@ import okhttp3.*;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import javax.activation.MimetypesFileTypeMap;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -232,26 +227,40 @@ public class WebDavFile {
     }
 
     /**
-     * 下载到本地。若本地存在同名文件，则取消下载
+     * 下载到本地
      *
-     * @param savedPath 本地的完整路径，包括最后的文件名
+     * @param savedPath       本地的完整路径，包括最后的文件名
+     * @param replaceExisting 是否替换本地的同名文件
      * @return 下载是否成功
      */
-    public boolean download(String savedPath) {
-        return download(savedPath, false);
-    }
-
     public boolean download(String savedPath, boolean replaceExisting) {
-        InputStream in = getInputStream();
-        try {
+        File file = new File(savedPath);
+        if (file.exists()) {
             if (replaceExisting) {
-                Files.copy(in, Paths.get(savedPath), StandardCopyOption.REPLACE_EXISTING);
+                file.delete();
             } else {
-                Files.copy(in, Paths.get(savedPath));
+                return false;
             }
+        }
+        InputStream in = getInputStream();
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(file);
+            byte[] buffer = new byte[1024 * 8];
+            int byteRead;
+            while ((byteRead = in.read(buffer)) != -1) {
+                out.write(buffer, 0, byteRead);
+            }
+            out.flush();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (out != null) out.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return false;
     }
@@ -264,13 +273,8 @@ public class WebDavFile {
      */
     public boolean upload(String localPath) {
         File file = new File((localPath));
-        String fileMime = "";
-        try {
-            // 获取文件的MIME类型
-            fileMime = Files.probeContentType(Paths.get(localPath));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        if (!file.exists()) return false;
+        String fileMime = new MimetypesFileTypeMap().getContentType(file);  // 获取文件的MIME类型
         // 务必注意RequestBody不要嵌套，不然上传时内容可能会被追加多余的文件信息
         RequestBody fileBody = RequestBody.create(MediaType.parse(fileMime), file);
         Request.Builder request = new Request.Builder()

@@ -19,7 +19,6 @@ public class OkHttp {
     }
 
     public OkHttpClient client() {
-
         if (okHttpClient == null) {
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
             interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
