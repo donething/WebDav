@@ -20,8 +20,10 @@ public class OkHttp {
 
     public OkHttpClient client() {
         if (okHttpClient == null) {
+            String logLevelStr = System.getProperty(LOG_LEVEL_TAG, HttpLoggingInterceptor.Level.BASIC.name());
+
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+            interceptor.setLevel(HttpLoggingInterceptor.Level.valueOf(logLevelStr));
             okHttpClient = new OkHttpClient.Builder().addInterceptor(interceptor).build();
         }
         return okHttpClient;
@@ -31,4 +33,18 @@ public class OkHttp {
         private final static OkHttp INSTANCE = new OkHttp();
     }
 
+    /**
+     * 设置Log显示等级
+     */
+    public static String LOG_LEVEL_TAG = "log_level";
+
+    /**
+     * Log等级
+     */
+    public static enum LOG_LEVEL {
+        NONE,
+        BASIC,
+        HEADERS,
+        BODY
+    }
 }

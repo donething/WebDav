@@ -1,6 +1,8 @@
 package net.donething.java.xdtianyu.webdav.webdav;
 
 import net.donething.java.xdtianyu.webdav.http.HttpAuth;
+import net.donething.java.xdtianyu.webdav.http.OkHttp;
+import okhttp3.logging.HttpLoggingInterceptor;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,5 +36,12 @@ public class WebDavFileTest {
         System.out.println(new MimetypesFileTypeMap().getContentType(new File("/home/zl/temp/qq.txt")));
         WebDavFile file = new WebDavFile("https://dav.jianguoyun.com/dav/PrivBackup/qq.txt");
         file.upload("/home/zl/下载/qq.txt");
+    }
+
+    @Test
+    public void doTest() {
+        System.setProperty(OkHttp.LOG_LEVEL_TAG, "NONE");
+        System.out.println(System.getProperty(OkHttp.LOG_LEVEL_TAG));
+        System.out.println(HttpLoggingInterceptor.Level.valueOf("Test"));
     }
 }
