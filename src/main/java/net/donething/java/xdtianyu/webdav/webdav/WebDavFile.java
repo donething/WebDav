@@ -9,7 +9,6 @@ import okhttp3.*;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
-import javax.activation.MimetypesFileTypeMap;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
@@ -271,12 +270,12 @@ public class WebDavFile {
      * @param localPath 本地文件路径
      * @return 是否成功成功
      */
-    public boolean upload(String localPath) {
+    public boolean upload(String localPath, String mimeType) {
         File file = new File((localPath));
         if (!file.exists()) return false;
-        String fileMime = new MimetypesFileTypeMap().getContentType(file);  // 获取文件的MIME类型
+        // String fileMime = new MimetypesFileTypeMap().getContentType(file);  // 获取文件的MIME类型
         // 务必注意RequestBody不要嵌套，不然上传时内容可能会被追加多余的文件信息
-        RequestBody fileBody = RequestBody.create(MediaType.parse(fileMime), file);
+        RequestBody fileBody = RequestBody.create(MediaType.parse(mimeType), file);
         Request.Builder request = new Request.Builder()
                 .url(getUrl())
                 .put(fileBody);

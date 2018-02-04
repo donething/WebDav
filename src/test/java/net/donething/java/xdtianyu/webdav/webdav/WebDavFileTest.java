@@ -34,7 +34,7 @@ public class WebDavFileTest {
     public void upload() throws Exception {
         System.out.println(new MimetypesFileTypeMap().getContentType(new File("/home/zl/temp/qq.txt")));
         WebDavFile file = new WebDavFile("https://dav.jianguoyun.com/dav/PrivBackup/qq.txt");
-        file.upload("/home/zl/下载/qq.txt");
+        file.upload("/home/zl/下载/qq.txt", "");
     }
 
     @Test
