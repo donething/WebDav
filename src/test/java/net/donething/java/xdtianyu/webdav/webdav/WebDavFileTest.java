@@ -2,7 +2,6 @@ package net.donething.java.xdtianyu.webdav.webdav;
 
 import net.donething.java.xdtianyu.webdav.http.HttpAuth;
 import net.donething.java.xdtianyu.webdav.http.OkHttp;
-import okhttp3.logging.HttpLoggingInterceptor;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,6 +41,6 @@ public class WebDavFileTest {
     public void doTest() {
         System.setProperty(OkHttp.LOG_LEVEL_TAG, "NONE");
         System.out.println(System.getProperty(OkHttp.LOG_LEVEL_TAG));
-        System.out.println(HttpLoggingInterceptor.Level.valueOf("Test"));
+        // System.out.println(HttpLoggingInterceptor.Level.valueOf("Test"));
     }
 }
