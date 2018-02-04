@@ -244,6 +244,7 @@ public class WebDavFile {
         InputStream in = getInputStream();
         FileOutputStream out = null;
         try {
+            file.createNewFile();
             out = new FileOutputStream(file);
             byte[] buffer = new byte[1024 * 8];
             int byteRead;

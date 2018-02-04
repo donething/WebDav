@@ -28,6 +28,7 @@ public class WebDavFileTest {
     public void download() throws Exception {
         WebDavFile file = new WebDavFile("https://dav.jianguoyun.com/dav/PrivBackup/qq.txt");
         file.download("/home/zl/temp/qq.txt", false);
+        // new File("/home/zl/temp/test.txt").createNewFile();
     }
 
     @Test
